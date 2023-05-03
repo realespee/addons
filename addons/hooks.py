@@ -199,3 +199,6 @@ app_license = "MIT"
 # auth_hooks = [
 #	"addons.auth.validate"
 # ]
+
+
+fixtures = ['Custom Field']
