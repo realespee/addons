@@ -32,6 +32,7 @@ app_license = "MIT"
 # doctype_js = {"doctype" : "public/js/doctype.js"}
 doctype_js = {
         "Salary Slip" : "custom_script/salary_slip/salary_slip.js",
+        "Timesheet" : "custom_script/timesheet/timesheet.js",
 	}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -101,6 +102,10 @@ doctype_js = {
 #	"ToDo": "custom_app.overrides.CustomToDo"
 # }
 
+override_doctype_class = {
+	"Salary Slip": "addons.overrides.salary_slip.salary_slip.CustomSalarySlip"
+}
+
 # Document Events
 # ---------------
 # Hook on document methods and events
@@ -112,6 +117,16 @@ doctype_js = {
 #		"on_trash": "method"
 #	}
 # }
+
+doc_events = {
+	"Item": {
+		"autoname":"touchmagix.touchmagix.docevents.item_autoname"
+	},
+	"Material Request":{
+		"on_update": "touchmagix.custom_scripts.material_request.material_request.on_update",
+		'before_save' : "touchmagix.custom_scripts.material_request.material_request.before_save"
+	},
+}
 
 # Scheduled Tasks
 # ---------------
