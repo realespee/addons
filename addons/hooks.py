@@ -219,4 +219,19 @@ doc_events = {
 # ]
 
 
-fixtures = ['Custom Field']
+# fixtures = ['Custom Field']
+
+fixtures = [
+       {
+         "dt": "Custom Field", 
+         "filters": [
+                ["name", "in", [
+                        "Salary Slip-total_overtime_hours",
+                        "Salary Slip Timesheet-overtime_hours",
+                        "Salary Slip-overtime_bonus_rate",
+                        "Timesheet-project_overtime_rate",
+                        "Project-overtime_rate"
+                ]
+         ]]
+}
+]
