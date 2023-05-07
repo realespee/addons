@@ -2,19 +2,7 @@ import frappe
 from erpnext.utilities.transaction_base import TransactionBase
 from hrms.payroll.doctype.salary_slip.salary_slip import SalarySlip
 
-from frappe.utils import (
-	add_days,
-	cint,
-	cstr,
-	date_diff,
-	flt,
-	formatdate,
-	get_first_day,
-	get_link_to_form,
-	getdate,
-	money_in_words,
-	rounded,
-)
+from frappe.utils import flt
 
 
 class CustomSalarySlip(SalarySlip):
@@ -33,12 +21,10 @@ class CustomSalarySlip(SalarySlip):
                 )
             ).run(as_dict=1)
 
-            print('/n/n Timesheet /n', timesheets, '/n/n')
-
             for data in timesheets:
                 # Edited line below to add overtime hours to timesheet childtable
                 self.append("timesheets", {"time_sheet": data.name, "working_hours": data.total_hours, "overtime_hours": data.overtime_hours})
-    
+            self.overtime_bonus_rate = timesheets[0].project_overtime_rate
     
     def pull_sal_struct(self):
         from hrms.payroll.doctype.salary_structure.salary_structure import make_salary_slip
@@ -49,7 +35,7 @@ class CustomSalarySlip(SalarySlip):
             self.base_hour_rate = flt(self.hour_rate) * flt(self.exchange_rate)
             self.total_working_hours = sum([d.working_hours or 0.0 for d in self.timesheets]) or 0.0
             # Added line below to add total overtime hours
-            self.total_overtime_hours = sum([d.overtime_hours or 0.0 for d in self.timesheets])
+            self.total_overtime_hours = sum([d.overtime_hours or 0.0 for d in self.timesheets]) 
             wages_amount = self.hour_rate * self.total_working_hours
 
             self.add_earning_for_hourly_wages(
