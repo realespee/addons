@@ -118,16 +118,6 @@ override_doctype_class = {
 #	}
 # }
 
-doc_events = {
-	"Item": {
-		"autoname":"touchmagix.touchmagix.docevents.item_autoname"
-	},
-	"Material Request":{
-		"on_update": "touchmagix.custom_scripts.material_request.material_request.on_update",
-		'before_save' : "touchmagix.custom_scripts.material_request.material_request.before_save"
-	},
-}
-
 # Scheduled Tasks
 # ---------------
 
