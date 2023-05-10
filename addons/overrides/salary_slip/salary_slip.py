@@ -24,6 +24,8 @@ class CustomSalarySlip(SalarySlip):
             for data in timesheets:
                 # Edited line below to add overtime hours to timesheet childtable
                 self.append("timesheets", {"time_sheet": data.name, "working_hours": data.total_hours, "overtime_hours": data.overtime_hours})
+            # Add static overtime rate
+            self.overtime_bonus_rate = timesheets[0].project_overtime_rate
     
     def pull_sal_struct(self):
         from hrms.payroll.doctype.salary_structure.salary_structure import make_salary_slip
@@ -36,7 +38,7 @@ class CustomSalarySlip(SalarySlip):
             # Added line below to add total overtime hours
             self.total_overtime_hours = sum([d.overtime_hours or 0.0 for d in self.timesheets])
             # Added line below to calculate cumulative overtime_bonus_rate
-            self.overtime_bonus_rate = self.overtime_rate(self.total_overtime_hours)
+            # self.overtime_bonus_rate = self.overtime_rate(self.total_overtime_hours)
             wages_amount = self.hour_rate * self.total_working_hours
 
             self.add_earning_for_hourly_wages(
