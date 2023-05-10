@@ -39,6 +39,7 @@ class CustomSalarySlip(SalarySlip):
             self.total_overtime_hours = sum([d.overtime_hours or 0.0 for d in self.timesheets])
             # Added line below to calculate cumulative overtime_bonus_rate
             # self.overtime_bonus_rate = self.overtime_rate(self.total_overtime_hours)
+            self.overtime_bonus_rate = self.overtime_bonus_rate
             wages_amount = self.hour_rate * self.total_working_hours
 
             self.add_earning_for_hourly_wages(
