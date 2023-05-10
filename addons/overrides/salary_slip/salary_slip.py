@@ -39,8 +39,10 @@ class CustomSalarySlip(SalarySlip):
             # self.overtime_bonus_rate = self.cumulative_overtime_rate(self.total_overtime_hours)
 
             # Add static overtime rate
-            overtime_set = [d.project_overtime_rate or 0.0 for d in self.timesheets]
-            self.overtime_bonus_rate = overtime_set[0]
+            try:    
+                self.overtime_bonus_rate = self.timesheets[0].project_overtime_rate
+            except:
+                frappe.throw('Selected Employee has no active timesheets')
 
             wages_amount = self.hour_rate * self.total_working_hours
 
