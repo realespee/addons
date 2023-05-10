@@ -42,7 +42,7 @@ class CustomSalarySlip(SalarySlip):
             try:    
                 self.overtime_bonus_rate = self.timesheets[0].project_overtime_rate
             except:
-                frappe.throw('Selected Employee has no active timesheets')
+                frappe.throw('Selected Employee has no active timesheets between given start and end dates')
 
             wages_amount = self.hour_rate * self.total_working_hours
 
